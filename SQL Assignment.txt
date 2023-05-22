@@ -1,0 +1,306 @@
+3. Display last_name, job_id, employee_id for each employee with employee_id
+appearing first.
+-->
+
+ SELECT LAST_NAME,JOB_ID,EMPLOYEE_ID FROM EMPLOYEE LIMIT 1;
++-----------+----------+-------------+
+| LAST_NAME | JOB_ID   | EMPLOYEE_ID |
++-----------+----------+-------------+
+|  Connell  | SH_CLERK |         198 |
++-----------+----------+-------------+
+1 row in set (0.00 sec)
+
+4. Display the details of all employees of department 60.
+-->
+SELECT *FROM EMPLOYEE WHERE DEPARTMENT_ID=60;
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID  | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+|         205 | Higgins   | AC_MGR  | 2300.00 |     NULL |    101 |            60 |            NULL |
+|         206 | Gitz      | IT_PROG | 5000.00 |     NULL |    103 |            60 |            NULL |
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+2 rows in set (0.00 sec)
+
+5. Display the employee details of the employee who’s last_name is King.
+--> 
+SELECT *FROM EMPLOYEE WHERE LAST_NAME='KING';
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID  | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+|         100 | King      | AD_ASST | 8956.00 |     0.30 |    108 |           100 |            NULL |
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+1 row in set (0.00 sec)
+
+6. Display unique job_id from EMPLOYEE table. Give alias name to the column as
+JOB_TITLE.
+--> 
+
+SELECT DISTINCT (JOB_ID) AS JOB_TITLE FROM EMPLOYEE;
++-----------+
+| JOB_TITLE |
++-----------+
+| SH_CLERK  |
+| AD_ASST   |
+| IT_PROG   |
+| AC_MGR    |
+| AD_VP     |
+| AD_PRES   |
++-----------+
+6 rows in set (0.03 sec)
+
+
+7. Display last_name, salary and salary increase of Rs300. Give the new column name
+as ‘Increased Salary’.
+-->
+
+ select last_name , salary, salary+300 as increase_salary from employee;
++-----------+---------+-----------------+
+| last_name | salary  | increase_salary |
++-----------+---------+-----------------+
+|  Connell  | 2600.00 |         2900.00 |
+| Grant     | 2600.00 |         2900.00 |
+| Whalen    | 4400.00 |         4700.00 |
+| Hartstein | 6000.00 |         6300.00 |
+| Fay       | 6500.00 |         6800.00 |
+| Mavris    | 7500.00 |         7800.00 |
+| Baer      | 3500.00 |         3800.00 |
+| Higgins   | 2300.00 |         2600.00 |
+| Gitz      | 5000.00 |         5300.00 |
+| King      | 8956.00 |         9256.00 |
+| Kochar    | 3400.00 |         3700.00 |
++-----------+---------+-----------------+
+11 rows in set (0.05 sec)
+
+
+8. Display last_name, salary and annual compensation of all employees, plus a
+onetime bonus of Rs 100. Give an alias name to the column displaying annual
+compensation.
+-->
+SELECT LAST_NAME , SALARY , (SALARY*12)+100 AS 'ANNUAL COMPENSATION' FROM EMPLOYEE;
++-----------+---------+---------------------+
+| LAST_NAME | SALARY  | ANNUAL COMPENSATION |
++-----------+---------+---------------------+
+|  Connell  | 2600.00 |            31300.00 |
+| Grant     | 2600.00 |            31300.00 |
+| Whalen    | 4400.00 |            52900.00 |
+| Hartstein | 6000.00 |            72100.00 |
+| Fay       | 6500.00 |            78100.00 |
+| Mavris    | 7500.00 |            90100.00 |
+| Baer      | 3500.00 |            42100.00 |
+| Higgins   | 2300.00 |            27700.00 |
+| Gitz      | 5000.00 |            60100.00 |
+| King      | 8956.00 |           107572.00 |
+| Kochar    | 3400.00 |            40900.00 |
++-----------+---------+---------------------+
+11 rows in set (0.00 sec)
+
+9. Display the details of those employees who get commission.
+-->
+
+ SELECT *FROM EMPLOYEE WHERE COMM_PCT IS NOT NULL;
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID   | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+|         198 |  Connell  | SH_CLERK | 2600.00 |     2.50 |    124 |            50 |            NULL |
+|         199 | Grant     | SH_CLERK | 2600.00 |     2.20 |    124 |            50 |            NULL |
+|         200 | Whalen    | AD_ASST  | 4400.00 |     1.30 |    101 |            10 |            NULL |
+|         204 | Baer      | AD_PRES  | 3500.00 |     1.50 |    101 |            90 |            NULL |
+|         100 | King      | AD_ASST  | 8956.00 |     0.30 |    108 |           100 |            NULL |
+|         101 | Kochar    | SH_CLERK | 3400.00 |     1.30 |    118 |            30 |            NULL |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+6 rows in set (0.00 sec)
+
+10.Display the details of those employees who do not get commission
+-->
+ SELECT *FROM EMPLOYEE WHERE COMM_PCT IS NULL;
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID  | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+|         201 | Hartstein | IT_PROG | 6000.00 |     NULL |    100 |            20 |            NULL |
+|         202 | Fay       | AC_MGR  | 6500.00 |     NULL |    210 |            20 |            NULL |
+|         203 | Mavris    | AD_VP   | 7500.00 |     NULL |    101 |            40 |            NULL |
+|         205 | Higgins   | AC_MGR  | 2300.00 |     NULL |    101 |            60 |            NULL |
+|         206 | Gitz      | IT_PROG | 5000.00 |     NULL |    103 |            60 |            NULL |
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+5 rows in set (0.00 sec)
+
+11.Display the Employee_id, Department_id and Salary all employees whose salary is
+greater than 5000.
+-->
+ SELECT EMPLOYEE_ID,DEPARTMENT_ID , SALARY FROM EMPLOYEE WHERE SALARY >5000;
++-------------+---------------+---------+
+| EMPLOYEE_ID | DEPARTMENT_ID | SALARY  |
++-------------+---------------+---------+
+|         201 |            20 | 6000.00 |
+|         202 |            20 | 6500.00 |
+|         203 |            40 | 7500.00 |
+|         100 |           100 | 8956.00 |
++-------------+---------------+---------+
+4 rows in set (0.04 sec)
+
+12.Display the Last_Name and Salary of all employees whose salary is between 4000
+and 7000.
+-->
+SELECT LAST_NAME,SALARY FROM EMPLOYEE WHERE SALARY BETWEEN 4000 AND 7000;
++-----------+---------+
+| LAST_NAME | SALARY  |
++-----------+---------+
+| Whalen    | 4400.00 |
+| Hartstein | 6000.00 |
+| Fay       | 6500.00 |
+| Gitz      | 5000.00 |
++-----------+---------+
+4 rows in set (0.00 sec)
+
+13.Display the details of all employees whose salary is either 6000 or 6500 or 7000.
+-->
+ SELECT *FROM EMPLOYEE WHERE SALARY IN (6000,6500,7000);
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID  | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+|         201 | Hartstein | IT_PROG | 6000.00 |     NULL |    100 |            20 |            NULL |
+|         202 | Fay       | AC_MGR  | 6500.00 |     NULL |    210 |            20 |            NULL |
++-------------+-----------+---------+---------+----------+--------+---------------+-----------------+
+2 rows in set (0.00 sec)
+
+14.Display the details of all those employees who work either in department 10 or 20
+or 30 or 50.
+-->
+ SELECT *FROM EMPLOYEE WHERE DEPARTMENT_ID IN (10,20,30,50);
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID   | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+|         198 |  Connell  | SH_CLERK | 2600.00 |     2.50 |    124 |            50 |            NULL |
+|         199 | Grant     | SH_CLERK | 2600.00 |     2.20 |    124 |            50 |            NULL |
+|         200 | Whalen    | AD_ASST  | 4400.00 |     1.30 |    101 |            10 |            NULL |
+|         201 | Hartstein | IT_PROG  | 6000.00 |     NULL |    100 |            20 |            NULL |
+|         202 | Fay       | AC_MGR   | 6500.00 |     NULL |    210 |            20 |            NULL |
+|         101 | Kochar    | SH_CLERK | 3400.00 |     1.30 |    118 |            30 |            NULL |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+6 rows in set (0.00 sec)
+
+15.Display the details of all employees whose salary is not equal to 5000.
+-->
+ SELECT *FROM EMPLOYEE WHERE SALARY != 5000;
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID   | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+|         198 |  Connell  | SH_CLERK | 2600.00 |     2.50 |    124 |            50 |            NULL |
+|         199 | Grant     | SH_CLERK | 2600.00 |     2.20 |    124 |            50 |            NULL |
+|         200 | Whalen    | AD_ASST  | 4400.00 |     1.30 |    101 |            10 |            NULL |
+|         201 | Hartstein | IT_PROG  | 6000.00 |     NULL |    100 |            20 |            NULL |
+|         202 | Fay       | AC_MGR   | 6500.00 |     NULL |    210 |            20 |            NULL |
+|         203 | Mavris    | AD_VP    | 7500.00 |     NULL |    101 |            40 |            NULL |
+|         204 | Baer      | AD_PRES  | 3500.00 |     1.50 |    101 |            90 |            NULL |
+|         205 | Higgins   | AC_MGR   | 2300.00 |     NULL |    101 |            60 |            NULL |
+|         100 | King      | AD_ASST  | 8956.00 |     0.30 |    108 |           100 |            NULL |
+|         101 | Kochar    | SH_CLERK | 3400.00 |     1.30 |    118 |            30 |            NULL |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY <> 5000;
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID   | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+|         198 |  Connell  | SH_CLERK | 2600.00 |     2.50 |    124 |            50 |            NULL |
+|         199 | Grant     | SH_CLERK | 2600.00 |     2.20 |    124 |            50 |            NULL |
+|         200 | Whalen    | AD_ASST  | 4400.00 |     1.30 |    101 |            10 |            NULL |
+|         201 | Hartstein | IT_PROG  | 6000.00 |     NULL |    100 |            20 |            NULL |
+|         202 | Fay       | AC_MGR   | 6500.00 |     NULL |    210 |            20 |            NULL |
+|         203 | Mavris    | AD_VP    | 7500.00 |     NULL |    101 |            40 |            NULL |
+|         204 | Baer      | AD_PRES  | 3500.00 |     1.50 |    101 |            90 |            NULL |
+|         205 | Higgins   | AC_MGR   | 2300.00 |     NULL |    101 |            60 |            NULL |
+|         100 | King      | AD_ASST  | 8956.00 |     0.30 |    108 |           100 |            NULL |
+|         101 | Kochar    | SH_CLERK | 3400.00 |     1.30 |    118 |            30 |            NULL |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+10 rows in set (0.00 sec)
+
+16.Display the details of all the CLERKS working in the organization.
+-->
+ SELECT *FROM EMPLOYEE WHERE JOB_ID = 'SH_CLERK';
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID   | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+|         198 |  Connell  | SH_CLERK | 2600.00 |     2.50 |    124 |            50 |            NULL |
+|         199 | Grant     | SH_CLERK | 2600.00 |     2.20 |    124 |            50 |            NULL |
+|         101 | Kochar    | SH_CLERK | 3400.00 |     1.30 |    118 |            30 |            NULL |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+3 rows in set (0.00 sec)
+
+17.Update the job_id’s of the employees who earn more than 5000 to Grade_A.
+Display the table EMPLOYEE after updating.
+-->
+
+UPDATE EMPLOYEE SET JOB_ID = 'GRADE_A' WHERE SALARY > 5000;
+Query OK, 4 rows affected (0.21 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> SELECT *FROM EMPLOYEE;
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID   | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+|         198 |  Connell  | SH_CLERK | 2600.00 |     2.50 |    124 |            50 |            NULL |
+|         199 | Grant     | SH_CLERK | 2600.00 |     2.20 |    124 |            50 |            NULL |
+|         200 | Whalen    | AD_ASST  | 4400.00 |     1.30 |    101 |            10 |            NULL |
+|         201 | Hartstein | GRADE_A  | 6000.00 |     NULL |    100 |            20 |            NULL |
+|         202 | Fay       | GRADE_A  | 6500.00 |     NULL |    210 |            20 |            NULL |
+|         203 | Mavris    | GRADE_A  | 7500.00 |     NULL |    101 |            40 |            NULL |
+|         204 | Baer      | AD_PRES  | 3500.00 |     1.50 |    101 |            90 |            NULL |
+|         205 | Higgins   | AC_MGR   | 2300.00 |     NULL |    101 |            60 |            NULL |
+|         206 | Gitz      | IT_PROG  | 5000.00 |     NULL |    103 |            60 |            NULL |
+|         100 | King      | GRADE_A  | 8956.00 |     0.30 |    108 |           100 |            NULL |
+|         101 | Kochar    | SH_CLERK | 3400.00 |     1.30 |    118 |            30 |            NULL |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+11 rows in set (0.00 sec)
+
+
+18.Display the details of all those employees who are either CLERK or
+PROGRAMMER or ASSISTANT.
+-->
+ SELECT * FROM EMPLOYEE WHERE JOB_ID IN ('SH_CLERK','IT_PROG','AD_ASST');
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID   | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+|         198 |  Connell  | SH_CLERK | 2600.00 |     2.50 |    124 |            50 |            NULL |
+|         199 | Grant     | SH_CLERK | 2600.00 |     2.20 |    124 |            50 |            NULL |
+|         200 | Whalen    | AD_ASST  | 4400.00 |     1.30 |    101 |            10 |            NULL |
+|         201 | Hartstein | IT_PROG  | 6000.00 |     NULL |    100 |            20 |            NULL |
+|         206 | Gitz      | IT_PROG  | 5000.00 |     NULL |    103 |            60 |            NULL |
+|         100 | King      | AD_ASST  | 8956.00 |     0.30 |    108 |           100 |            NULL |
+|         101 | Kochar    | SH_CLERK | 3400.00 |     1.30 |    118 |            30 |            NULL |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+7 rows in set (0.00 sec)
+
+19.Display those employees from the EMPLOYEE table whose designation is
+CLERK and salary is less than 3000.
+-->
+
+ SELECT *FROM EMPLOYEE WHERE SALARY < 3000 AND JOB_ID = 'SH_CLERK';
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+| EMPLOYEE_ID | LAST_NAME | JOB_ID   | SALARY  | COMM_PCT | MGR_ID | DEPARTMENT_ID | SALARY_INCREASE |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+|         198 |  Connell  | SH_CLERK | 2600.00 |     2.50 |    124 |            50 |            NULL |
+|         199 | Grant     | SH_CLERK | 2600.00 |     2.20 |    124 |            50 |            NULL |
++-------------+-----------+----------+---------+----------+--------+---------------+-----------------+
+2 rows in set (0.00 sec)
+
+
+20. Display those employees Last_Name, Mgr_id from the EMPLOYEE table whose
+salary is above 3000 and work under Manager 101.
+-->
+
+ SELECT LAST_NAME,MGR_ID FROM EMPLOYEE WHERE SALARY > 3000 AND MGR_ID = 101;
++-----------+--------+
+| LAST_NAME | MGR_ID |
++-----------+--------+
+| Whalen    |    101 |
+| Mavris    |    101 |
+| Baer      |    101 |
++-----------+--------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
